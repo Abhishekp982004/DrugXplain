@@ -1,0 +1,36 @@
+# ========================================
+# DrugXplain Project .gitignore
+# ========================================
+
+# Ignore raw datasets (STITCH, DrugBank, etc.)
+data/raw/
+
+# Ignore processed and intermediate data files
+data/processed/
+
+# Ignore large binary and model files
+*.pt
+*.pth
+*.npy
+*.npz
+*.gz
+*.zip
+*.tar
+*.tsv
+*.csv
+
+# Ignore logs, cache, and temp files
+*.log
+*.tmp
+__pycache__/
+*.pyc
+
+# Ignore system or IDE-specific files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Allow placeholder files (like README) inside ignored dirs
+!data/raw/README.md
+!data/processed/README.md
