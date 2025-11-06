@@ -1,25 +1,32 @@
+# gnn_model.py
 import torch
 import torch.nn.functional as F
-from torch_geometric.nn import GATConv
+from torch_geometric.nn import GCNConv
 
-class GATLinkPredictor(torch.nn.Module):
-    def __init__(self, in_channels, hidden_channels=128, out_channels=64, heads=2, dropout=0.3):
+
+class GCNEncoder(torch.nn.Module):
+    """Encodes node features into embeddings using lightweight GCN layers."""
+    def __init__(self, in_channels, hidden_channels=64, out_channels=32):
         super().__init__()
-        self.conv1 = GATConv(in_channels, hidden_channels, heads=heads, dropout=dropout)
-        self.conv2 = GATConv(hidden_channels * heads, out_channels, heads=1, concat=False, dropout=dropout)
-        self.dropout = dropout
+        self.conv1 = GCNConv(in_channels, hidden_channels)
+        self.conv2 = GCNConv(hidden_channels, out_channels)
 
-    def encode(self, x, edge_index):
+    def forward(self, x, edge_index):
         x = self.conv1(x, edge_index)
-        x = F.elu(x)
-        x = F.dropout(x, p=self.dropout, training=self.training)
+        x = F.relu(x)
+        x = F.dropout(x, p=0.3, training=self.training)
         x = self.conv2(x, edge_index)
         return x
 
-    def decode(self, z, edge_label_index):
-        src, dst = edge_label_index
-        return (z[src] * z[dst]).sum(dim=-1)
 
-    def forward(self, x, edge_index, edge_label_index):
-        z = self.encode(x, edge_index)
-        return self.decode(z, edge_label_index)
+class GCNLinkPredictor(torch.nn.Module):
+    """Link prediction model using node embeddings from GCN."""
+    def __init__(self, in_channels, hidden_channels=64, out_channels=32):
+        super().__init__()
+        self.encoder = GCNEncoder(in_channels, hidden_channels, out_channels)
+
+    def forward(self, x, edge_index, edge_pairs):
+        z = self.encoder(x, edge_index)
+        src, dst = edge_pairs
+        score = (z[src] * z[dst]).sum(dim=1)  # dot product similarity
+        return score
