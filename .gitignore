@@ -1,23 +1,23 @@
 # ========================================
-# DrugXplain Project .gitignore
+# DrugXplain Project .gitignore (Fixed)
 # ========================================
 
 # Ignore raw datasets (STITCH, DrugBank, etc.)
 data/raw/
 
-# Ignore processed and intermediate data files
-data/processed/
+# Ignore large processed and intermediate data files
+# but allow important small CSVs
+data/processed/graph_data.pt
+data/processed/*.pt
+data/processed/*.pth
+data/processed/*.npy
+data/processed/*.npz
+data/processed/*.gz
+data/processed/*.tar
+data/processed/*.zip
 
-# Ignore large binary and model files
-*.pt
-*.pth
-*.npy
-*.npz
-*.gz
-*.zip
-*.tar
-*.tsv
-*.csv
+# Keep small CSV results in processed/
+!data/processed/*.csv
 
 # Ignore logs, cache, and temp files
 *.log
