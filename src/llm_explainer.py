@@ -15,9 +15,7 @@ PREFERRED_MODELS = ['mistral:latest', 'mistral:7b-instruct-q4', 'gemma:2b']
 MAX_WORKERS = 6  # Number of parallel threads (tune based on GPU VRAM)
 
 
-# ============================================================
-# 🔍 Model Detection
-# ============================================================
+# Model Detection
 
 def get_available_models():
     try:
@@ -35,18 +33,15 @@ def select_model():
     for model in PREFERRED_MODELS:
         model_name = model.split(':')[0]
         if any(model_name in a for a in available):
-            print(f"✅ Using Ollama model: {model}")
+            print(f"Using Ollama model: {model}")
             return model
-    print("⚠️ No preferred model found locally. Defaulting to Mistral (will try to pull if needed).")
+    print("No preferred model found locally. Defaulting to Mistral (will try to pull if needed).")
     return 'mistral:latest'
 
 
 MODEL_NAME = select_model()
 
-
-# ============================================================
-# 💾 Cache Management
-# ============================================================
+# Cache Management
 
 def load_cache():
     if os.path.exists(CACHE_FILE):
@@ -59,16 +54,14 @@ def save_cache(cache):
         json.dump(cache, f, indent=2, ensure_ascii=False)
 
 
-# ============================================================
-# 🧠 LLM Explanation Generator
-# ============================================================
+# LLM Explanation Generator
 
 def get_llm_explanation(drug_a, drug_b, score, cache):
     drug_a, drug_b = str(drug_a).strip(), str(drug_b).strip()
     cache_key = f"{drug_a}|{drug_b}"
 
     if cache_key in cache:
-        print(f"💾 Using cached explanation for: {drug_a} + {drug_b}")
+        print(f"Using cached explanation for: {drug_a} + {drug_b}")
         return cache[cache_key]
 
     prompt = f"""
@@ -79,7 +72,7 @@ def get_llm_explanation(drug_a, drug_b, score, cache):
     for this adverse drug-drug interaction.
     """
 
-    print(f"🧠 Querying Ollama ({MODEL_NAME}) for: {drug_a} + {drug_b}...")
+    print(f"Querying Ollama ({MODEL_NAME}) for: {drug_a} + {drug_b}...")
 
     try:
         response = ollama.chat(
@@ -92,19 +85,16 @@ def get_llm_explanation(drug_a, drug_b, score, cache):
         save_cache(cache)
         return explanation
     except Exception as e:
-        print(f"❌ Error generating {drug_a}+{drug_b}: {e}")
+        print(f"Error generating {drug_a}+{drug_b}: {e}")
         return "Error: Could not generate explanation."
 
-
-# ============================================================
-# ⚡ Parallelized Processing
-# ============================================================
+# Parallelized Processing
 
 def generate_explanations():
-    print(f"🚀 Starting parallel LLM generation with Ollama ({MODEL_NAME}) using {MAX_WORKERS} threads...")
+    print(f"Starting parallel LLM generation with Ollama ({MODEL_NAME}) using {MAX_WORKERS} threads...")
 
     if not os.path.exists(INPUT_CSV):
-        print(f"❌ Input file '{INPUT_CSV}' not found.")
+        print(f"Input file '{INPUT_CSV}' not found.")
         return None
 
     df = pd.read_csv(INPUT_CSV)
@@ -129,14 +119,12 @@ def generate_explanations():
 
     df['explanation'] = [r[2] for r in results]
     df.to_csv(OUTPUT_CSV, index=False)
-    print(f"\n✅ Explanations saved to '{OUTPUT_CSV}'. Cache updated ({len(cache)} entries).")
+    print(f"\n Explanations saved to '{OUTPUT_CSV}'. Cache updated ({len(cache)} entries).")
 
     return df
 
 
-# ============================================================
-# 🌐 Web Viewer
-# ============================================================
+# Web Viewer
 
 def launch_web_viewer():
     app = Flask(__name__)
@@ -165,9 +153,7 @@ def launch_web_viewer():
     app.run(port=5000, debug=False)
 
 
-# ============================================================
-# 🚀 Entry Point
-# ============================================================
+# Entry Point
 
 if __name__ == "__main__":
     df = generate_explanations()

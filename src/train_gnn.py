@@ -15,12 +15,12 @@ def train(epochs=10, batch_size=50000):
     print("[INFO] Loading graph data...")
     data = torch.load(GRAPH_PATH, weights_only=False)
 
-    # ✅ Auto device detection
+    # Auto device detection
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"[INFO] Using device: {device}")
     data = data.to(device)
 
-    # ✅ Initialize model and optimizer
+    # Initialize model and optimizer
     model = GCNLinkPredictor(data.x.size(1)).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
     loss_fn = torch.nn.BCEWithLogitsLoss()
@@ -35,11 +35,11 @@ def train(epochs=10, batch_size=50000):
         model.train()
         total_loss = 0.0
 
-        # ✅ Precompute embeddings once per epoch
+        # Precompute embeddings once per epoch
         with torch.no_grad():
             node_emb = model.encode(data.x, data.edge_index)
 
-        # ✅ Pre-generate negative edges (reuse during epoch)
+        # Pre-generate negative edges (reuse during epoch)
         neg_edges_all = negative_sampling(data.edge_index, num_nodes=data.num_nodes)
 
         all_logits, all_labels = [], []
@@ -54,7 +54,7 @@ def train(epochs=10, batch_size=50000):
 
             optimizer.zero_grad(set_to_none=True)
 
-            # ✅ Mixed precision forward pass
+            # Mixed precision forward pass
             with torch.cuda.amp.autocast(enabled=(device.type == "cuda")):
                 pos_pred = model.decode(node_emb, pos_edges)
                 neg_pred = model.decode(node_emb, neg_edges)
@@ -67,7 +67,7 @@ def train(epochs=10, batch_size=50000):
 
                 loss = loss_fn(logits, labels)
 
-            # ✅ AMP backward + step
+            # AMP backward + step
             scaler.scale(loss).backward()
             scaler.step(optimizer)
             scaler.update()
@@ -78,24 +78,24 @@ def train(epochs=10, batch_size=50000):
 
             pbar.set_postfix({"Loss": f"{loss.item():.4f}"})
 
-        # ✅ Compute AUC once per epoch (on CPU)
+        # Compute AUC once per epoch (on CPU)
         with torch.no_grad():
             all_logits = torch.cat(all_logits).numpy()
             all_labels = torch.cat(all_labels).numpy()
             auc = roc_auc_score(all_labels, all_logits)
 
         avg_loss = total_loss / num_batches
-        print(f"✅ Epoch {epoch:02d} | Avg Loss={avg_loss:.4f} | AUC={auc:.4f}")
+        print(f"Epoch {epoch:02d} | Avg Loss={avg_loss:.4f} | AUC={auc:.4f}")
 
-        # ✅ Save checkpoint every 2 epochs
+        # Save checkpoint every 2 epochs
         if epoch % 2 == 0:
             checkpoint_path = f"../models/gnn_model_epoch{epoch}.pt"
             torch.save(model.state_dict(), checkpoint_path)
             print(f"[CHECKPOINT] Saved model to {checkpoint_path}")
 
-    # ✅ Save final model
+    # Save final model
     torch.save(model.state_dict(), MODEL_PATH)
-    print(f"🎯 Final model saved to {MODEL_PATH}")
+    print(f"Final model saved to {MODEL_PATH}")
 
 
 if __name__ == "__main__":

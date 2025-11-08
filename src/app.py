@@ -113,9 +113,9 @@ df_all_data = load_all_data_from_db(collection)
 with st.sidebar:
     st.title("Core Workflow")
     st.markdown("""
-    1.  **Graph Construction:** Building the drug-drug interaction network.
-    2.  **GNN Risk Prediction:** Identifying novel, high-risk interactions.
-    3.  **LLM Clinical Explanation:** Generating human-readable explanations.
+    1.  *Graph Construction:* Building the drug-drug interaction network.
+    2.  *GNN Risk Prediction:* Identifying novel, high-risk interactions.
+    3.  *LLM Clinical Explanation:* Generating human-readable explanations.
     """)
     st.divider()
 
@@ -137,9 +137,9 @@ if selected_page == "Home":
     This dashboard is the final step in an AI pipeline designed to predict and explain adverse Drug-Drug Interactions (DDIs).
     
     Adverse DDIs are a major cause of medical complications. Our project addresses this by:
-    1.  **GNN Prediction** A Graph Neural Network (GNN) was trained on known drug data to predict novel, high-risk interactions.
-    2.  **LLM Explanation** The top 200 high-risk pairs were fed into a local LLM to generate clinical, human-readable explanations.
-    3.  **Vector Database** These 200 explanations are stored in a vector database, allowing you to search for them by symptom, mechanism, or drug name.
+    1.  *GNN Prediction* A Graph Neural Network (GNN) was trained on known drug data to predict novel, high-risk interactions.
+    2.  *LLM Explanation* The top 200 high-risk pairs were fed into a local LLM to generate clinical, human-readable explanations.
+    3.  *Vector Database* These 200 explanations are stored in a vector database, allowing you to search for them by symptom, mechanism, or drug name.
     
     Use the sidebar to navigate between the Search, Browse, and Graph views.
     """)
@@ -185,7 +185,7 @@ elif selected_page == "Search":
         drug_b = data.get('drug_b_name', "N/A")
         score = data.get('risk_score', 0)
         
-        expander_title = f"**{drug_a} + {drug_b}** (Risk Score: {score:.4f})"
+        expander_title = f"{drug_a} + {drug_b}** (Risk Score: {score:.4f})"
         
         with st.expander(expander_title):
             st.metric(
@@ -194,7 +194,7 @@ elif selected_page == "Search":
                 delta="High Risk" if score > 0.9 else ("Moderate Risk" if score > 0.7 else "Low Risk"),
                 delta_color="inverse" if score > 0.9 else "normal"
             )
-            st.markdown("**Clinical Explanation:**")
+            st.markdown("*Clinical Explanation:*")
             st.markdown(explanation)
 
 # --- Page 3: Browse All ---
