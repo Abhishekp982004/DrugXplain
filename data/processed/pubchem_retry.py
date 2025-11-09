@@ -24,7 +24,7 @@ def save_cache(cache):
 def get_pubchem_name(cid):
     """Try multiple endpoints to get a name."""
     cid_str = str(cid)
-    # Try Title + IUPAC
+    # Title + IUPAC
     url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/property/Title,IUPACName/JSON"
     try:
         r = requests.get(url, timeout=10)
@@ -33,12 +33,12 @@ def get_pubchem_name(cid):
             props = data["PropertyTable"]["Properties"][0]
             name = props.get("Title") or props.get("IUPACName")
             if name:
-                print(f"✅ {cid} → {name}")
+                print(f" {cid} → {name}")
                 return name
     except Exception:
         pass
 
-    # Try Synonyms
+    # Synonyms
     try:
         syn_url = f"https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/{cid}/synonyms/JSON"
         r = requests.get(syn_url, timeout=10)
@@ -46,18 +46,18 @@ def get_pubchem_name(cid):
             data = r.json()
             syns = data.get("InformationList", {}).get("Information", [{}])[0].get("Synonym", [])
             if syns:
-                print(f"🔄 {cid} → {syns[0]} (from synonym)")
+                print(f" {cid} → {syns[0]} (from synonym)")
                 return syns[0]
     except Exception:
         pass
 
-    print(f"⚠️ {cid} still unresolved")
+    print(f" {cid} still unresolved")
     return "Unknown"
 
 def main():
     cache = load_cache()
     unknowns = [cid for cid, name in cache.items() if name == "Unknown"]
-    print(f"🔍 Retrying {len(unknowns)} unresolved IDs...")
+    print(f" Retrying {len(unknowns)} unresolved IDs...")
 
     for i, cid in enumerate(unknowns, 1):
         new_name = get_pubchem_name(cid)
@@ -65,9 +65,9 @@ def main():
         save_cache(cache)
         time.sleep(SLEEP_BETWEEN_CALLS)
         if i % 10 == 0:
-            print(f"💾 Progress: {i}/{len(unknowns)} done")
+            print(f" Progress: {i}/{len(unknowns)} done")
 
-    print("\n✅ Retry complete! Cache updated.")
+    print("\n Retry complete! Cache updated.")
 
 if __name__ == "__main__":
     main()
