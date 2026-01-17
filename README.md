@@ -42,8 +42,42 @@ The system helps clinicians move beyond static, rule-based interaction checks by
 Follow these steps to set up and launch the application:
 
 ### 1. Install dependencies
-```bash
+```
 pip install -r requirements.txt
+```
+### 2. Train the GNN model
+```
+cd src
+python train_gnn.py
+```
+### 3. Run inference
+```
+python inference_gnn.py
+```
+### 4. Generate explanations
+```
+python llm_explainer.py
+```
+### 5. Store in vector DB
+```
+python vector_store.py
+```
+### 6. Launch the dashboard
+```
+streamlit run app.py
+```
+---
+## 👥 Team DrugXplain
+* **Abhishek P**
+* **Aditya Dwaraki Rao**
+* **Bhuvi Prashanth**
+
+## 📌 Future Scope
+* **Polypharmacy Prediction:** Extending support for multi-drug (3+) interactions.
+* **EHR Integration:** Integration with hospital Electronic Health Record systems.
+* **Real-time Support:** Deployment-ready backend APIs for clinical settings.
+* **Regulatory Compliance:** Developing modules for safety and explainability certification.
+
 
 
 
