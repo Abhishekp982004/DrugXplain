@@ -1,6 +1,6 @@
 # 🧬 DrugXplain: Adverse Drug Interaction Prediction & Clinical Explanation using Graph Neural Networks and Medical LLMs
 
-**🏆 Winner – Swasthya Avishkar Hackathon 2025** *Organized by CoDMAV, PES University and powered by Carelon Global Solutions India.*
+**🏆 Winner – Swasthya Avishkar Hackathon 2025** *Organized by CoDMAV, PES University and powered by Carelon Global Solutions India.* *Track: AI Pipelines for Drug Repurposing, Efficacy Prediction, and Development
 
 ---
 
@@ -43,3 +43,4 @@ Follow these steps to set up and launch the application:
 ### 1. Install dependencies
 ```bash
 pip install -r requirements.txt
+
