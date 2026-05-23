@@ -11,11 +11,11 @@
 The system helps clinicians move beyond static, rule-based interaction checks by identifying **hidden, high-risk drug combinations** and generating **human-readable clinical explanations** for why those interactions occur.
 
 ## Features
-* ** Intelligent Search:** Search by drug names, symptoms, or biological mechanisms.
-* ** GNN-based Risk Scoring:** Predicts the probability of harmful interactions using graph structures.
-* ** LLM Explanations:** Translates complex AI predictions into clinician-friendly medical insights.
-* ** Interactive Network Graph:** Visualize drug interaction networks using PyVis.
-* ** Fast Retrieval:** Semantic search enabled by vector embeddings (ChromaDB).
+* **Intelligent Search:** Search by drug names, symptoms, or biological mechanisms.
+* **GNN-based Risk Scoring:** Predicts the probability of harmful interactions using graph structures.
+* **LLM Explanations:** Translates complex AI predictions into clinician-friendly medical insights.
+* **Interactive Network Graph:** Visualize drug interaction networks using PyVis.
+* **Fast Retrieval:** Semantic search enabled by vector embeddings (ChromaDB).
 
 ## Technology Stack
 * **Language:** Python
