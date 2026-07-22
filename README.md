@@ -1,6 +1,8 @@
 # 🧬 DrugXplain: Adverse Drug Interaction Prediction & Clinical Explanation using Graph Neural Networks and Medical LLMs
 
 **🏆 Winner – Swasthya Avishkar Hackathon 2025** *Organized by Center for Data Modelling, Analytics and Visualization (CoDMAV), PES University and powered by Carelon Global Solutions India.* 
+
+*LinkedIn Post*
 ## **Track: AI Pipelines for Drug Repurposing, Efficacy Prediction, and Development**
 
 ---
