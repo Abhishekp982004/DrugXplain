@@ -2,7 +2,7 @@
 
 **🏆 Winner – Swasthya Avishkar Hackathon 2025** *Organized by Center for Data Modelling, Analytics and Visualization (CoDMAV), PES University and powered by Carelon Global Solutions India.* 
 
-*LinkedIn Post*
+*[LinkedIn Post]([https://ollama.com/download](https://www.linkedin.com/posts/abhishek-p-07724b217_ai-healthcare-machinelearning-activity-7393175275875950592-DnB3?utm_source=share&utm_medium=member_desktop&rcm=ACoAADas1psB3QMGkqLt-MxQbsF_340o_2Rpxzc))*
 ## **Track: AI Pipelines for Drug Repurposing, Efficacy Prediction, and Development**
 
 ---
