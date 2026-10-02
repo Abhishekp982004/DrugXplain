@@ -5,9 +5,9 @@
 **[LinkedIn Post](https://www.linkedin.com/posts/abhishek-p-07724b217_ai-healthcare-machinelearning-activity-7393175275875950592-DnB3?utm_source=share&utm_medium=member_desktop&rcm=ACoAADas1psB3QMGkqLt-MxQbsF_340o_2Rpxzc)**
 
 ## Team DrugXplain
-* **Abhishek P**
-* **[Aditya](https://github.com/AdiXgit)**
-* **Bhuvi Prashanth**
+* **[Abhishek P](https://github.com/Abhishekp982004)**
+* **[Aditya Dwaraki Rao](https://github.com/AdiXgit)**
+* **[Bhuvi Prashanth](https://github.com/bhuviprashantharadhya)**
   
 ## **Track: AI Pipelines for Drug Repurposing, Efficacy Prediction, and Development**
 
