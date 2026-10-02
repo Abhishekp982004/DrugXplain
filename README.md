@@ -69,10 +69,7 @@ python vector_store.py
 streamlit run app.py
 ```
 ---
-## Team DrugXplain
-* **Abhishek P**
-* **Aditya Dwaraki Rao**
-* **Bhuvi Prashanth**
+
 
 ## Future Scope
 * **Polypharmacy Prediction:** Extending support for multi-drug (3+) interactions.
