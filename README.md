@@ -6,7 +6,7 @@
 
 ## Team DrugXplain
 * **Abhishek P**
-* **Aditya Dwaraki Rao**
+* **[@Aditya](https://github.com/AdiXgit)**
 * **Bhuvi Prashanth**
   
 ## **Track: AI Pipelines for Drug Repurposing, Efficacy Prediction, and Development**
